@@ -17,8 +17,8 @@ void MainWindow::paintEvent(QPaintEvent *event)
 {
     QPainter shape(this);
 
-    std::uniform_int_distribution<int> width_dist(0+size+10, 570-size+10);
-    std::uniform_int_distribution<int> height_dist(0+size+10, 440-size+10);
+    std::uniform_int_distribution<int> width_dist(0+size+10, 570-size-10);
+    std::uniform_int_distribution<int> height_dist(0+size+10, 440-size-10);
     std::uniform_int_distribution<int> color_dist(0, 3);
 
     int rand_x = width_dist(*QRandomGenerator::global());
@@ -45,7 +45,14 @@ void MainWindow::paintEvent(QPaintEvent *event)
             break;
     }
 
-    shape.drawEllipse(rand_x, rand_y, size, size);
+    if (flag)
+        shape.drawEllipse(rand_x, rand_y, size, size);
+}
 
+
+void MainWindow::on_start_Button_clicked()
+{
+    flag = true;
+    update();
 }
 

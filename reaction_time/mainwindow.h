@@ -20,6 +20,10 @@ public:
     virtual void paintEvent(QPaintEvent *event);
 
     int size = 100;
+    bool flag = false;
+
+private slots:
+    void on_start_Button_clicked();
 
 private:
     Ui::MainWindow *ui;
