@@ -33,6 +33,15 @@ void MainWindow::calculate_random()
     rand_c = color_dist(*QRandomGenerator::global());
 }
 
+double MainWindow::calculate_mean_value(QList<double> list)
+{
+    double sum = 0.0;
+    foreach (double tempo, list) {
+        sum += tempo;
+    }
+    return sum / list.size();
+}
+
 
 void MainWindow::on_start_Button_clicked()
 {
@@ -123,10 +132,15 @@ void MainWindow::keyPressEvent(QKeyEvent *e)
 
     t_mili = (double) tmili / 1000.0; //tempo em segundos
 
+    list_of_times.append(t_mili);
+
+    double mean_time = calculate_mean_value(list_of_times);
+
     calculate_random();
     update();
     ui->score_label->setText(QString::number(score));
-    ui->last_react_time_label->setText(QString::number(t_mili) + " s");
+    ui->last_react_time_label->setText(QString::number(t_mili, 'f', 3) + " s");
+    ui->mean_time_label->setText(QString::number(mean_time, 'f', 3) + "s");
 }
 
 
@@ -139,7 +153,7 @@ void MainWindow::on_reset_Button_clicked()
     update();
 
     ui->score_label->setText(QString::number(score));
-    ui->last_react_time_label->setText(QString::number(t_mili) + " s");
+    ui->last_react_time_label->setText(QString::number(t_mili, 'f', 3) + " s");
     ui->reset_Button->setEnabled(false);
     ui->start_Button->setEnabled(true);
 }

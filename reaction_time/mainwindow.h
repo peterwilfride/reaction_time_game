@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QList>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -15,6 +16,7 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
     void calculate_random();
+    double calculate_mean_value(QList<double> list);
 
 protected:
     virtual void paintEvent(QPaintEvent *e);
@@ -37,5 +39,6 @@ private:
     int current_color;
     struct timeval i_time, f_time;
     double t_mili;
+    QList<double> list_of_times;
 };
 #endif // MAINWINDOW_H
