@@ -2,8 +2,6 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include <QPainter>
-#include <QRandomGenerator>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -16,16 +14,28 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
+    void calculate_random();
 
-    virtual void paintEvent(QPaintEvent *event);
-
-    int size = 100;
-    bool flag = false;
+protected:
+    virtual void paintEvent(QPaintEvent *e);
+    void keyPressEvent(QKeyEvent* e);
 
 private slots:
     void on_start_Button_clicked();
 
+    void on_reset_Button_clicked();
+
 private:
     Ui::MainWindow *ui;
+    bool flag = false;
+    int count = 0;
+    int size = 100;
+    int score = 0;
+    int rand_x;
+    int rand_y;
+    int rand_c;
+    int current_color;
+    struct timeval i_time, f_time;
+    double t_mili;
 };
 #endif // MAINWINDOW_H

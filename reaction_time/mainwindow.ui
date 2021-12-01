@@ -30,8 +30,8 @@
    <widget class="QPushButton" name="reset_Button">
     <property name="geometry">
      <rect>
-      <x>600</x>
-      <y>390</y>
+      <x>590</x>
+      <y>350</y>
       <width>151</width>
       <height>31</height>
      </rect>
@@ -155,6 +155,32 @@
     </property>
     <property name="alignment">
      <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="help_Button">
+    <property name="geometry">
+     <rect>
+      <x>590</x>
+      <y>390</y>
+      <width>151</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>HELP</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="color_label">
+    <property name="geometry">
+     <rect>
+      <x>620</x>
+      <y>310</y>
+      <width>66</width>
+      <height>19</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>color</string>
     </property>
    </widget>
   </widget>
