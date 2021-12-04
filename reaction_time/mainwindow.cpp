@@ -7,6 +7,7 @@
 #include <QMessageBox>
 #include <stdlib.h>
 #include <sys/time.h>
+#include "dialog.h"
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -57,10 +58,6 @@ void MainWindow::on_start_Button_clicked()
 void MainWindow::paintEvent(QPaintEvent *event)
 {
     Q_UNUSED(event);
-
-    if (ui->health_bar->value() == 0) {
-        ui->is_end->setText("fim!");
-    }
 
     QPainter shape(this);
 
@@ -158,6 +155,7 @@ void MainWindow::keyPressEvent(QKeyEvent *e)
 
     double mean_time = calculate_mean_value(list_of_times);
 
+
     calculate_random();
     update();
     ui->score_label->setText(QString::number(score));
@@ -178,5 +176,14 @@ void MainWindow::on_reset_Button_clicked()
     ui->last_react_time_label->setText(QString::number(t_mili, 'f', 3) + " s");
     ui->reset_Button->setEnabled(false);
     ui->start_Button->setEnabled(true);
+}
+
+
+void MainWindow::on_help_Button_clicked()
+{
+    Dialog helpdialog;
+
+    helpdialog.setModal(true);
+    helpdialog.exec();
 }
 
