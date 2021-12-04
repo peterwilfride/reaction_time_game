@@ -16,7 +16,7 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
     void calculate_random();
-    double calculate_mean_value(QList<double> list);
+    double calculate_mean_value(QList<double>& list_of_times);
 
 protected:
     virtual void paintEvent(QPaintEvent *e);
@@ -26,6 +26,8 @@ private slots:
     void on_start_Button_clicked();
 
     void on_reset_Button_clicked();
+
+    void on_help_Button_clicked();
 
 private:
     Ui::MainWindow *ui;

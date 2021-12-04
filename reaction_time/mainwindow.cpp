@@ -4,6 +4,7 @@
 #include <QPainter>
 #include <QRandomGenerator>
 #include <QKeyEvent>
+#include <QMessageBox>
 #include <stdlib.h>
 #include <sys/time.h>
 
@@ -15,6 +16,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     this->setFixedSize(QSize(768, 456));
     ui->score_label->setText(QString::number(score));
+    ui->health_bar->setValue(100);
 }
 
 MainWindow::~MainWindow()
@@ -33,13 +35,13 @@ void MainWindow::calculate_random()
     rand_c = color_dist(*QRandomGenerator::global());
 }
 
-double MainWindow::calculate_mean_value(QList<double> list)
+double MainWindow::calculate_mean_value(QList<double>& list_of_times)
 {
     double sum = 0.0;
-    foreach (double tempo, list) {
+    foreach (double tempo, list_of_times) {
         sum += tempo;
     }
-    return sum / list.size();
+    return sum / list_of_times.size();
 }
 
 
@@ -55,6 +57,10 @@ void MainWindow::on_start_Button_clicked()
 void MainWindow::paintEvent(QPaintEvent *event)
 {
     Q_UNUSED(event);
+
+    if (ui->health_bar->value() == 0) {
+        ui->is_end->setText("fim!");
+    }
 
     QPainter shape(this);
 
@@ -93,33 +99,49 @@ void MainWindow::keyPressEvent(QKeyEvent *e)
         case 87:
             if (current_color ==  0) {
                 qDebug() << char(e->key()) << " : bola azul capturada";
+                ui->eval_label->setText("<font color='green'>ACERTOU!</font>");
+                ui->health_bar->setValue(ui->health_bar->value() + 10);
                 score += 1;
             }else{
                 qDebug() << char(e->key()) << " : você errou";
+                ui->eval_label->setText("<font color='red'>ERROU!</font>");
+                ui->health_bar->setValue(ui->health_bar->value() - 20);
             }
             break;
         case 68:
             if (current_color ==  1) {
                 qDebug() << char(e->key()) << " : bola amarela capturada";
+                ui->eval_label->setText("<font color='green'>ACERTOU!</font>");
+                ui->health_bar->setValue(ui->health_bar->value() + 10);
                 score += 1;
             }else{
                 qDebug() << char(e->key()) << " : você errou";
+                ui->eval_label->setText("<font color='red'>ERROU!</font>");
+                ui->health_bar->setValue(ui->health_bar->value() - 20);
             }
             break;
         case 83:
             if (current_color ==  2) {
                 qDebug() << char(e->key()) << " : bola vermelho capturada";
+                ui->eval_label->setText("<font color='green'>ACERTOU!</font>");
+                ui->health_bar->setValue(ui->health_bar->value() + 10);
                 score += 1;
             }else{
                 qDebug() << char(e->key()) << " : você errou";
+                ui->eval_label->setText("<font color='red'>ERROU!</font>");
+                ui->health_bar->setValue(ui->health_bar->value() - 20);
             }
             break;
         case 65:
             if (current_color ==  3) {
                 qDebug() << char(e->key()) << " : bola verde capturada";
+                ui->eval_label->setText("<font color='green'>ACERTOU!</font>");
+                ui->health_bar->setValue(ui->health_bar->value() + 10);
                 score += 1;
             }else{
                 qDebug() << char(e->key()) << " : você errou";
+                ui->eval_label->setText("<font color='red'>ERROU!</font>");
+                ui->health_bar->setValue(ui->health_bar->value() - 20);
             }
             break;
         default:
