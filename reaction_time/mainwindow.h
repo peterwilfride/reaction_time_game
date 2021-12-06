@@ -17,6 +17,8 @@ public:
     ~MainWindow();
     void calculate_random();
     double calculate_mean_value(QList<double>& list_of_times);
+    void update_bar(int value);
+    void game_over();
 
 protected:
     virtual void paintEvent(QPaintEvent *e);
@@ -31,6 +33,8 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
+    int increase_bar = 10;
+    int decrease_bar = -20;
     bool flag = false;
     int count = 0;
     int size = 100;
@@ -42,5 +46,6 @@ private:
     struct timeval i_time, f_time;
     double t_mili;
     QList<double> list_of_times;
+    double mean_time;
 };
 #endif // MAINWINDOW_H

@@ -68,6 +68,7 @@
     <property name="font">
      <font>
       <pointsize>16</pointsize>
+      <weight>75</weight>
       <bold>true</bold>
      </font>
     </property>
@@ -106,6 +107,7 @@
     <property name="font">
      <font>
       <pointsize>16</pointsize>
+      <weight>75</weight>
       <bold>true</bold>
      </font>
     </property>
@@ -144,6 +146,7 @@
     <property name="font">
      <font>
       <pointsize>16</pointsize>
+      <weight>75</weight>
       <bold>true</bold>
      </font>
     </property>
@@ -178,6 +181,7 @@
     </property>
     <property name="font">
      <font>
+      <weight>75</weight>
       <bold>true</bold>
      </font>
     </property>
@@ -204,6 +208,29 @@
      <string>%p</string>
     </property>
    </widget>
+   <widget class="QLabel" name="game_over_label">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>90</y>
+      <width>531</width>
+      <height>221</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>30</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
@@ -211,7 +238,7 @@
      <x>0</x>
      <y>0</y>
      <width>768</width>
-     <height>23</height>
+     <height>22</height>
     </rect>
    </property>
   </widget>
