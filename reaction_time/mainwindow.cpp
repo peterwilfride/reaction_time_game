@@ -119,9 +119,7 @@ void MainWindow::paintEvent(QPaintEvent *event)
         shape.drawEllipse(rand_x, rand_y, size, size);
         gettimeofday(&i_time, NULL); //tempo inicial
         id_t = startTimer(expire_time);
-
     }
-
 }
 
 void MainWindow::keyPressEvent(QKeyEvent *e)
