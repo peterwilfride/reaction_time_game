@@ -23,6 +23,7 @@ public:
 protected:
     virtual void paintEvent(QPaintEvent *e);
     void keyPressEvent(QKeyEvent* e);
+    void timerEvent(QTimerEvent* e);
 
 private slots:
     void on_start_Button_clicked();
@@ -48,5 +49,7 @@ private:
     QList<double> list_of_times;
     double mean_time;
     bool test;
+    int id_t;
+    int expire_time = 4000;
 };
 #endif // MAINWINDOW_H

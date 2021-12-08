@@ -8,6 +8,8 @@
 #include <stdlib.h>
 #include <sys/time.h>
 #include "dialog.h"
+#include <QTimerEvent>
+#include <QTimer>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -116,6 +118,8 @@ void MainWindow::paintEvent(QPaintEvent *event)
         current_color = rand_c;
         shape.drawEllipse(rand_x, rand_y, size, size);
         gettimeofday(&i_time, NULL); //tempo inicial
+        id_t = startTimer(expire_time);
+
     }
 
 }
@@ -172,6 +176,7 @@ void MainWindow::keyPressEvent(QKeyEvent *e)
 
         if(flag) {
 
+            killTimer(id_t);
             gettimeofday(&f_time, NULL);
 
             int tmili = (int) (1000 * (f_time.tv_sec - i_time.tv_sec) +
@@ -194,6 +199,22 @@ void MainWindow::keyPressEvent(QKeyEvent *e)
             ui->mean_time_label->setText(QString::number(mean_time, 'f', 3) + "s");
         }
 
+}
+
+void MainWindow::timerEvent(QTimerEvent *e)
+{
+    if (e->timerId() == id_t) {
+        calculate_random();
+        update();
+        ui->eval_label->setText("<font color='red'>ERROU!</font>");
+        update_bar(decrease_bar);
+
+        list_of_times.append((double)expire_time/1000.0);
+        mean_time = calculate_mean_value(list_of_times);
+        ui->last_react_time_label->setText(QString::number((double)expire_time/1000.0,'f', 3) + " s");
+        ui->score_label->setText(QString::number(score));
+        ui->mean_time_label->setText(QString::number(mean_time, 'f', 3) + "s");
+    }
 }
 
 
