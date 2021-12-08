@@ -77,7 +77,7 @@ void MainWindow::on_start_Button_clicked()
     ui->start_Button->setEnabled(false);
     ui->reset_Button->setEnabled(true);
     ui->health_bar->setValue(100);
-    ui->game_over_label->setText("");
+    ui->game_over_label->clear();
 }
 
 void MainWindow::paintEvent(QPaintEvent *event)
@@ -114,88 +114,85 @@ void MainWindow::paintEvent(QPaintEvent *event)
 
     if(flag) {
         current_color = rand_c;
-
-        gettimeofday(&i_time, NULL); //tempo inicial
         shape.drawEllipse(rand_x, rand_y, size, size);
+        gettimeofday(&i_time, NULL); //tempo inicial
     }
+
 }
 
 void MainWindow::keyPressEvent(QKeyEvent *e)
 {
-    if(flag){
-
-        switch (e->key()) {
+    switch (e->key()) {
             case 87:
                 if (current_color ==  0) {
-                    qDebug() << char(e->key()) << " : bola azul capturada";
                     ui->eval_label->setText("<font color='green'>ACERTOU!</font>");
-                    update_bar(increase_bar);
                     score += 1;
+                    test = true;
                 }else{
-                    qDebug() << char(e->key()) << " : você errou";
                     ui->eval_label->setText("<font color='red'>ERROU!</font>");
-                    update_bar(decrease_bar);
+                    test = false;
                 }
                 break;
             case 68:
                 if (current_color ==  1) {
-                    qDebug() << char(e->key()) << " : bola amarela capturada";
                     ui->eval_label->setText("<font color='green'>ACERTOU!</font>");
-                    update_bar(increase_bar);
                     score += 1;
+                    test = true;
                 }else{
-                    qDebug() << char(e->key()) << " : você errou";
                     ui->eval_label->setText("<font color='red'>ERROU!</font>");
-                    update_bar(decrease_bar);
+                    test = false;
                 }
                 break;
             case 83:
                 if (current_color ==  2) {
-                    qDebug() << char(e->key()) << " : bola vermelho capturada";
                     ui->eval_label->setText("<font color='green'>ACERTOU!</font>");
-                    update_bar(10);
                     score += 1;
+                    test = true;
                 }else{
-                    qDebug() << char(e->key()) << " : você errou";
                     ui->eval_label->setText("<font color='red'>ERROU!</font>");
-                    update_bar(decrease_bar);
+                    test = false;
                 }
                 break;
             case 65:
                 if (current_color ==  3) {
-                    qDebug() << char(e->key()) << " : bola verde capturada";
                     ui->eval_label->setText("<font color='green'>ACERTOU!</font>");
-                    update_bar(increase_bar);
                     score += 1;
+                    test = true;
                 }else{
-                    qDebug() << char(e->key()) << " : você errou";
                     ui->eval_label->setText("<font color='red'>ERROU!</font>");
-                    update_bar(decrease_bar);
+                    test = false;
                 }
                 break;
             default:
+                ui->eval_label->setText("<font color='red'>ERROU!</font>");
+                test = false;
                 break;
         }
 
 
-        gettimeofday(&f_time, NULL); //tempo final
-        int tmili = (int) (1000 * (f_time.tv_sec - i_time.tv_sec) +
-                           (f_time.tv_usec - i_time.tv_usec) / 1000);
+        if(flag) {
 
-        t_mili = (double) tmili / 1000.0; //tempo em segundos
+            gettimeofday(&f_time, NULL);
 
-        list_of_times.append(t_mili);
+            int tmili = (int) (1000 * (f_time.tv_sec - i_time.tv_sec) +
+                               (f_time.tv_usec - i_time.tv_usec) / 1000);
+            t_mili = (double) tmili / 1000.0;
 
-        mean_time = calculate_mean_value(list_of_times);
+            list_of_times.append(t_mili);
 
+            mean_time = calculate_mean_value(list_of_times);
 
-        calculate_random();
-        update();
-        ui->score_label->setText(QString::number(score));
-        ui->last_react_time_label->setText(QString::number(t_mili, 'f', 3) + " s");
-        ui->mean_time_label->setText(QString::number(mean_time, 'f', 3) + "s");
+            if(test)
+                update_bar(increase_bar);
+            else
+                update_bar(decrease_bar);
 
-    }
+            calculate_random();
+            update();
+            ui->last_react_time_label->setText(QString::number(t_mili) + " s");
+            ui->score_label->setText(QString::number(score));
+            ui->mean_time_label->setText(QString::number(mean_time, 'f', 3) + "s");
+        }
 
 }
 
@@ -214,7 +211,9 @@ void MainWindow::on_reset_Button_clicked()
     ui->reset_Button->setEnabled(false);
     ui->start_Button->setEnabled(true);
     ui->mean_time_label->setText(QString::number(mean_time, 'f', 3) + " s");
-    ui->game_over_label->setText("");
+    ui->game_over_label->clear();
+    ui->eval_label->clear();
+    ui->health_bar->setValue(100);
 }
 
 

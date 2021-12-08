@@ -43,9 +43,10 @@ private:
     int rand_y;
     int rand_c;
     int current_color;
-    struct timeval i_time, f_time;
+    struct timeval i_time, f_time, real_time;
     double t_mili;
     QList<double> list_of_times;
     double mean_time;
+    bool test;
 };
 #endif // MAINWINDOW_H
